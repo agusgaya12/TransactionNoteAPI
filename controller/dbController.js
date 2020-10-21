@@ -4,6 +4,7 @@ const storesModel = require('../model/storesmodel')
 const bookModel = require('../model/booksmodel')
 const storageModel = require('../model/storageModel')
 const transactionModel = require('../model/transactionModel')
+const usersModel = require('../Model/usersModel')
 
 // ⚠️ propietary code, don't change it ⚠️
 // this code will create db.json automatically if your folder doesn't have one
@@ -26,7 +27,8 @@ let db;
       store: [],
       storage: [],
       book: [],
-      transaction: []
+      transaction: [],
+      users: []
     })
       .write()
   } catch (error) {
@@ -88,6 +90,9 @@ function add(tableName, body) {
   }
   if (tableName == 'transaction') {
     parsedBody = validator(body, transactionModel)
+  }
+  if (tableName == 'users') {
+    shapedBody = shapeObject(body, usersModel)
   }
   if (!parsedBody) {
     return false
