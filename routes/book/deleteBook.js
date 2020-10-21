@@ -5,8 +5,15 @@ const authentication = require('../../middleware/authenticationMiddleware')
 
 app.use(authentication)
 
-app.get('/book', (req, res) => {
-    res.send(db.get('book'))
+app.delete("/book", function (req, res) {
+    let id = req.query.id
+    const result = db.remove('book', id)
+    if (result) {
+        res.send(result)
+    }
+    else {
+        res.status(404).send('Not Found')
+    }
 })
 
 module.exports = app
